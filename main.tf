@@ -98,16 +98,16 @@ resource "aws_security_group" "sg_1" {
   name = "${var.prefix}-sg-1"
 
   ingress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "all"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "all"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "all"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "all"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -203,7 +203,6 @@ resource "aws_instance" "ec2_1" {
   tags = {
     Name = "${var.prefix}-ec2-1"
   }
-}
 
   # 루트 볼륨 설정
   root_block_device {
@@ -236,7 +235,6 @@ resource "aws_instance" "ec2_2" {
   tags = {
     Name = "${var.prefix}-ec2-2"
   }
-}
 
   # 루트 볼륨 설정
   root_block_device {
