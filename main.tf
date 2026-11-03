@@ -1,4 +1,61 @@
+terraform {
+  // aws 라이브러리 불러옴
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+    }
+  }
+}
 
+# AWS 설정 시작
+provider "aws" {
+  region = var.region
+}
+# AWS 설정 끝
+
+# VPC 설정 시작
+resource "aws_vpc" "vpc_1" {
+  cidr_block = "10.0.0.0/16"
+
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+
+  tags = {
+    Name = "${var.prefix}-vpc-1"
+  }
+}
+
+resource "aws_subnet" "subnet_1" {
+  vpc_id                  = aws_vpc.vpc_1.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "${var.region}a"
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "${var.prefix}-subnet-1"
+  }
+}
+
+resource "aws_subnet" "subnet_2" {
+  vpc_id                  = aws_vpc.vpc_1.id
+  cidr_block              = "10.0.2.0/24"
+  availability_zone       = "${var.region}b"
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "${var.prefix}-subnet-2"
+  }
+}
+
+resource "aws_subnet" "subnet_3" {
+  vpc_id                  = aws_vpc.vpc_1.id
+  cidr_block              = "10.0.3.0/24"
+  availability_zone       = "${var.region}c"
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "${var.prefix}-subnet-3"
+  }
 }
 
 resource "aws_internet_gateway" "igw_1" {
